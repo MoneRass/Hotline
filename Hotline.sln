@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hotline", "Hotline\Hotline.vcxproj", "{EE8759CA-C4E8-42A1-8F1C-2A41C6518983}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE8759CA-C4E8-42A1-8F1C-2A41C6518983}.Debug|x64.ActiveCfg = Debug|x64
+		{EE8759CA-C4E8-42A1-8F1C-2A41C6518983}.Debug|x64.Build.0 = Debug|x64
+		{EE8759CA-C4E8-42A1-8F1C-2A41C6518983}.Debug|x86.ActiveCfg = Debug|Win32
+		{EE8759CA-C4E8-42A1-8F1C-2A41C6518983}.Debug|x86.Build.0 = Debug|Win32
+		{EE8759CA-C4E8-42A1-8F1C-2A41C6518983}.Release|x64.ActiveCfg = Release|x64
+		{EE8759CA-C4E8-42A1-8F1C-2A41C6518983}.Release|x64.Build.0 = Release|x64
+		{EE8759CA-C4E8-42A1-8F1C-2A41C6518983}.Release|x86.ActiveCfg = Release|Win32
+		{EE8759CA-C4E8-42A1-8F1C-2A41C6518983}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {87B65DE9-4A1B-4B6D-9C61-3E2A385E6746}
+	EndGlobalSection
+EndGlobal
