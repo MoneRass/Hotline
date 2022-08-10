@@ -1,84 +1,96 @@
 #include<iostream>
 #include<SFML/Graphics.hpp>
-#include<math.h>
+#include"Player.h"
+#include"Bullet.h"
+#include"Menu.h"
+#include"gameWorld.h"
+#include"map.h"
 
-class control
-{
-	sf::Event event;
-public:
-	void playerMove(char key) {
-		if (key == sf::Keyboard::W) {
-			printf("W");
-		}
-		if (key == sf::Keyboard::A) {
-			printf("A");
-		}
-		if (key == sf::Keyboard::S) {
-			printf("S");
-		}
-		if (key == sf::Keyboard::D) {
-			printf("D");
-		}
-	}
-};
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "title");
+
+	window.setFramerateLimit(360);
+
+	Menu menu(window.getSize().x, window.getSize().y);
+
+	Bullet bull;
 	
-	window.setFramerateLimit(60);
+	GameWorld gameWorld = GameWorld();
 
-	sf::Event event;
+	sf::Texture texture;
+	if (!texture.loadFromFile("images/sliced-tileset/wall.png"))return 0;
+	sf::Sprite sprite;
+	sprite.setTexture(texture);
 
-	sf::CircleShape center(20);
-	//center.setOrigin(0.f, 0.f);
-	center.setFillColor(sf::Color::Red);
-	center.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
-
-	sf::Vector2f playerSize(50.f, 50.f);
-	sf::RectangleShape player(playerSize);
-	player.setOrigin(playerSize.x / 2.f, playerSize.y / 2.f);
-	player.setPosition(400, 300);
-
-	sf::CircleShape spinner(80, 3);
-	spinner.setPosition(300, 300);
-
-	control Player;
 
 	while (window.isOpen())
 	{
+		sf::Event event;
+			
 		while (window.pollEvent(event))
 		{
+			if (event.type == sf::Event::Closed) 
+				window.close();
 			
-			if (event.type == sf::Event::Closed) window.close();
+			//Player.playerLook(window);
+			//Player.playerLook2();
 			
-			if (event.type == sf::Event::KeyPressed) 
+			if (event.type == sf::Event::KeyPressed)
 			{
-				Player.playerMove(event.key.code);
-			}
-			if (event.type == sf::Event::MouseMoved) 
-			{
-				//std::cout << "X : " << event.mouseMove.x << std::endl;
-				//std::cout << "Y : " << event.mouseMove.y << std::endl;
-				//sf::Vector2f lookdir;
-				float lookdirX = event.mouseMove.x - player.getPosition().x;
-				float lookdirY = event.mouseMove.y - player.getPosition().y;
-				float angle = atan2(lookdirY,lookdirX) * 57.29578;
-				player.setRotation(angle);
+				if (menu.onMenu == true)
+				{
 
+					switch (event.key.code)
+					{
+					case sf::Keyboard::Up:
+						menu.moveUp();
+						printf("up");
+						
+						break;
+					case sf::Keyboard::Down:
+						menu.moveDown();
+						break;
+					case sf::Keyboard::Enter:
+						switch (menu.getPressed())
+						{
+						case 0:printf("press play");
+							menu.menuClear(window);
+							menu.onMenu = false;
+							std::cout << menu.onMenu;
+							break;
+						case 1:printf("press scb");
+							break;
+						case 2:printf("press exit");
+							window.close();
+							break;
+						}
+					default:
+						break;
+					}
+
+				}
 			}
-			
 			
 		}
-	//Update
+
 		
 
-	//Renderer
-	window.clear();
-	window.draw(player);
-	//window.draw(center);
-	window.draw(spinner);
-	window.display();
+		window.clear();
+
+		if(menu.onMenu==true)menu.draw(window);
+		for (int i = 0; i < gameWorld.gridLength; i++)
+		{
+			for (int j = 0; j < gameWorld.gridLength; j++)
+			{
+				window.draw(gameWorld.tiles[i][j]->sprite);
+			}
+		}
+		window.draw(sprite);
+		window.display();
+
+
 	}
 	return 0;
 }
