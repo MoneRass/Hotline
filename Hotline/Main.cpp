@@ -1,6 +1,6 @@
 #include<iostream>
 #include<SFML/Graphics.hpp>
-#include"Player.h"
+#include"Hunter.h"
 #include"Bullet.h"
 #include"Menu.h"
 #include"gameWorld.h"
@@ -12,17 +12,8 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(800, 600), "title");
 
 	window.setFramerateLimit(360);
-
+	Hunter hunter;
 	Menu menu(window.getSize().x, window.getSize().y);
-
-	Bullet bull;
-	
-	GameWorld gameWorld = GameWorld();
-
-	sf::Texture texture;
-	if (!texture.loadFromFile("images/sliced-tileset/wall.png"))return 0;
-	sf::Sprite sprite;
-	sprite.setTexture(texture);
 
 
 	while (window.isOpen())
@@ -75,19 +66,12 @@ int main()
 			
 		}
 
-		
+		hunter.movement();
 
 		window.clear();
 
 		if(menu.onMenu==true)menu.draw(window);
-		for (int i = 0; i < gameWorld.gridLength; i++)
-		{
-			for (int j = 0; j < gameWorld.gridLength; j++)
-			{
-				window.draw(gameWorld.tiles[i][j]->sprite);
-			}
-		}
-		window.draw(sprite);
+		hunter.draw(window);
 		window.display();
 
 
