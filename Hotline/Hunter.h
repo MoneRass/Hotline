@@ -10,11 +10,15 @@ public:
 
 	void idle();
 	void update();
+	void animation();
+	void playerSprite();
 
 private:
 	
+	bool move;
 	void movement();
 	sf::Sprite sprite;
 	sf::Texture texture;
-
+	sf::IntRect idleFrame;
+	sf::Clock animationTimer;
 };

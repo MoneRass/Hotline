@@ -66,7 +66,7 @@ int main()
 			
 		}
 
-		hunter.movement();
+		hunter.update();
 
 		window.clear();
 
