@@ -10,20 +10,20 @@ void Hunter::movement()
 	move = false;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		sprite.move(0, -1.f);
+		sprite.move(0, -5.f);
 		
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		sprite.move(-1.f, 0);
+		sprite.move(-5.f, 0);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		sprite.move(0, 1.f);
+		sprite.move(0, 5.f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		sprite.move(1.f, 0);
+		sprite.move(5.f, 0);
 		move = true;
 	}
 }
@@ -35,22 +35,40 @@ Hunter::~Hunter()
 
 Hunter::Hunter()
 {
-	this->playerSprite();
+	
+	this->animation();
 	this->update();
+	this->playerSprite();
 }
 
 void Hunter::playerSprite()
 {
-	texture.loadFromFile("images/playerSprite1/_Idle.png");
-	sprite.setTexture(texture);
-	sprite.setScale(1.f, 1.f);
-	idleFrame = sf::IntRect(0, 0, 120, 80);
-	sprite.setTextureRect(sf::IntRect(idleFrame));
-
+	this->currentFrame = sf::IntRect(0, 0, 120, 80);
+	this->sprite.setTextureRect(this->currentFrame);
+	this->sprite.setScale(5.5f, 5.5f);
 }
 
 void Hunter::idle()
 {
+	this->texture.loadFromFile("images/playerSprite1/_Idle.png");
+	this->sprite.setTexture(texture);
+	
+	this->currentFrame.left += 120.f;
+	
+	if (this->currentFrame.left >= 1200)
+	{
+		this->currentFrame.left = 0;
+	}
+	this->animationTimer.restart();
+	this->sprite.setTextureRect(this->currentFrame);
+}
+
+void Hunter::playerAttack()
+{
+	this->texture.loadFromFile("images/playerSprite1/_Attack");
+	this->sprite.setTexture(texture);
+	
+	this->animationTimer.restart();
 }
 
 void Hunter::update()
@@ -61,11 +79,24 @@ void Hunter::update()
 
 void Hunter::animation()
 {
-	if (move == false)//IDLE
+	if (this->animationTimer.getElapsedTime().asMilliseconds() / 100 >= 0.5f)
 	{
-		this->idleFrame.left += 120.f;
-		if (this->idleFrame.left >= 1200.f)
-			this->idleFrame.left = 0;
+		if (move == false)
+		{
+			this->idle();
+			printf("r");
+		}
+		
+
 	}
-	this->sprite.setTextureRect(this->idleFrame);
+}
+
+void Hunter::updateAmination()
+{
+	this->animationTimer.restart();
+}
+
+void Hunter::initVariable()
+{
+	this->move = false;
 }
