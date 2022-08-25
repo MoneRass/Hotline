@@ -35,6 +35,7 @@ int main()
 
 					switch (event.key.code)
 					{
+					
 					case sf::Keyboard::Up:
 						menu.moveUp();
 						printf("up");
@@ -59,6 +60,7 @@ int main()
 						}
 					default:
 						break;
+					
 					}
 
 				}

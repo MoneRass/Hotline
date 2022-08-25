@@ -2,6 +2,7 @@
 
 #define FRAME 120
 
+
 class Hunter
 {
 public:
@@ -17,11 +18,20 @@ public:
 	void playerSprite();
 	void playerAttack();
 	void initVariable();
+	void playerRunRight();
+	void playerRunLeft();
+	void couch();
+	void dash();
+	void jumpFunc();
 
 private:
-	
+	int attackCount=0;
 	bool move;
+	bool moveRight;
+	bool moveLeft;
+	bool couching;
 	bool attack;
+	bool jump;
 	void movement();
 	sf::Sprite sprite;
 	sf::Texture texture;
@@ -31,4 +41,5 @@ private:
 	sf::IntRect currentFrame;
 
 	sf::Clock animationTimer;
+	sf::Clock attackDelay;
 };
