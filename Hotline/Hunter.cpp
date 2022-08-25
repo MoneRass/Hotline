@@ -175,3 +175,5 @@ void Hunter::jumpFunc()
 		animationTimer.restart();
 
 }
+
+//help
