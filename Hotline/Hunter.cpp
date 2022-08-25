@@ -35,6 +35,10 @@ void Hunter::movement()
 		move = true;
 		moveRight = true;
 	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+	{
+		dash();
+	}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		attack = true;
@@ -126,6 +130,10 @@ void Hunter::animation()
 {
 	if (this->animationTimer.getElapsedTime().asMilliseconds() / 100 >= 0.5f)
 	{
+		if (move == false && couching == false)
+		{
+			this->idle();
+		}
 		if (move == true && jump == false)
 		{
 			this->playerRunRight();
@@ -134,10 +142,6 @@ void Hunter::animation()
 		{
 			this->playerAttack();
 			
-		}
-		if (move == false)
-		{
-			this->idle();
 		}
 	}
 	else if (move == false && couching == true)
@@ -158,6 +162,7 @@ void Hunter::initVariable()
 
 void Hunter::jumpFunc()
 {
+	//jumpTimer = JUMP_TIME;
 		if (jump == true && moveRight == true)
 		{
 			sprite.move(1.f, -5.f);
@@ -172,8 +177,34 @@ void Hunter::jumpFunc()
 			sprite.move(0, -5.f);
 		}
 		jump = false;
-		animationTimer.restart();
+		this->texture.loadFromFile("images/playerSprite1/_Jump.png");
+		this->sprite.setTexture(texture);
+		this->currentFrame.left += 120.f;
 
+		if (this->currentFrame.left >= 360)
+		{
+			this->currentFrame.left = 0;
+		}
+		this->animationTimer.restart();
+		this->sprite.setTextureRect(this->currentFrame);
+
+}
+
+void Hunter::dash()
+{
+	this->jump = false;
+	this->attack = false;
+	//sprite.move(10.f, 0);
+	this->texture.loadFromFile("images/playerSprite1/_Dash.png");
+	this->sprite.setTexture(texture);
+	this->currentFrame.left += 120.f;
+
+	if (this->currentFrame.left >= 240)
+	{
+		this->currentFrame.left = 0;
+	}
+	this->animationTimer.restart();
+	this->sprite.setTextureRect(this->currentFrame);
 }
 
 //help

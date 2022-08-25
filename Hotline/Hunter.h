@@ -1,7 +1,7 @@
 #include<SFML/Graphics.hpp>
 
-#define FRAME 120
-
+#define JUMP_SPEED 5.f
+#define JUMP_TIME 4
 
 class Hunter
 {
@@ -10,9 +10,24 @@ public:
 	Hunter();
 	virtual ~Hunter();
 	void draw(sf::RenderWindow& window);
-
-	void idle();
 	void update();
+
+
+private:
+	int attackCount=0;
+	int jumpTimer;
+	
+	float jumpSpeed;
+
+	bool move;
+	bool moveRight;
+	bool moveLeft;
+	bool couching;
+	bool attack;
+	bool jump;
+	
+	
+	void idle();
 	void animation();
 	void updateAmination();
 	void playerSprite();
@@ -23,16 +38,9 @@ public:
 	void couch();
 	void dash();
 	void jumpFunc();
-
-private:
-	int attackCount=0;
-	bool move;
-	bool moveRight;
-	bool moveLeft;
-	bool couching;
-	bool attack;
-	bool jump;
 	void movement();
+	
+	
 	sf::Sprite sprite;
 	sf::Texture texture;
 		
