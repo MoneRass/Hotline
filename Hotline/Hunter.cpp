@@ -12,7 +12,8 @@ void Hunter::movement()
 	jump = false;
 	moveRight = false;
 	moveLeft = false;
-	if(sprite.getPosition().y <= 200.f)sprite.move(0, 2.f);
+	dashing = false;
+	if(sprite.getPosition().y <= 200.f)sprite.move(0, 2.f);//Gravity
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		//sprite.move(0, -5.f);
@@ -128,7 +129,7 @@ void Hunter::update()
 
 void Hunter::animation()
 {
-	if (this->animationTimer.getElapsedTime().asMilliseconds() / 100 >= 0.5f)
+	if (this->animationTimer.getElapsedTime().asMilliseconds() / 150 >= 0.5f)
 	{
 		if (move == false && couching == false)
 		{
@@ -141,8 +142,9 @@ void Hunter::animation()
 		if (attack == true)
 		{
 			this->playerAttack();
-			
+
 		}
+		else if (dashing == true)this->dash();
 	}
 	else if (move == false && couching == true)
 	{
@@ -195,11 +197,11 @@ void Hunter::dash()
 	this->jump = false;
 	this->attack = false;
 	//sprite.move(10.f, 0);
-	this->texture.loadFromFile("images/playerSprite1/_Dash.png");
+	this->texture.loadFromFile("images/playerSprite1/_Roll.png");
 	this->sprite.setTexture(texture);
 	this->currentFrame.left += 120.f;
 
-	if (this->currentFrame.left >= 240)
+	if (this->currentFrame.left >= 1440)
 	{
 		this->currentFrame.left = 0;
 	}
@@ -207,4 +209,7 @@ void Hunter::dash()
 	this->sprite.setTextureRect(this->currentFrame);
 }
 
-//help
+void Hunter::setPos(float x, float y)
+{
+	sprite.setPosition(x, y);
+}

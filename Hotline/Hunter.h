@@ -8,9 +8,10 @@ class Hunter
 public:
 
 	Hunter();
-	virtual ~Hunter();
+	~Hunter();
 	void draw(sf::RenderWindow& window);
 	void update();
+	void setPos(float x, float y);
 
 
 private:
@@ -18,6 +19,8 @@ private:
 	int jumpTimer;
 	
 	float jumpSpeed;
+	float x;
+	float y;
 
 	bool move;
 	bool moveRight;
@@ -25,6 +28,7 @@ private:
 	bool couching;
 	bool attack;
 	bool jump;
+	bool dashing;
 	
 	
 	void idle();
@@ -39,6 +43,7 @@ private:
 	void dash();
 	void jumpFunc();
 	void movement();
+	void leanBack();
 	
 	
 	sf::Sprite sprite;
