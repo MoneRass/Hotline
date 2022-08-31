@@ -3,7 +3,7 @@
 Menu::Menu(float width, float heigth)
 {
 	header(width, heigth);
-	
+
 	if (!font.loadFromFile("HelpMe.ttf"))
 	{
 
@@ -39,10 +39,11 @@ void Menu::header(float width, float heigth)
 
 	}
 	head.setFont(font);
-	
+
 	head.setFillColor(sf::Color::White);
-	head.setString("- THE HUNTER OF HERMES -");
-	head.setScale(2, 1);
+	//head.setString("- THE HUNTER OF HERMES -");
+	head.setString("YAI MAK MAK");
+	//head.setScale(2, 1);
 	head.setPosition(sf::Vector2f((width / 2) - (5), heigth / (MAX_ITEM + 1) * 0.5));
 }
 
@@ -54,7 +55,7 @@ void Menu::draw(sf::RenderWindow& window)
 		window.draw(menu[i]);
 	}
 }
-//the project im working on right now is Game Developing
+
 void Menu::moveUp()
 {
 	if (selectItem - 1 >= 0)

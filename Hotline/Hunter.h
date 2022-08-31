@@ -12,12 +12,12 @@ public:
 	void draw(sf::RenderWindow& window);
 	void update();
 	void setPos(float x, float y);
-
+	void attackColli();
 
 private:
-	int attackCount=0;
+	int attackCount = 0;
 	int jumpTimer;
-	
+
 	float jumpSpeed;
 	float x;
 	float y;
@@ -29,8 +29,9 @@ private:
 	bool attack;
 	bool jump;
 	bool dashing;
-	
-	
+	bool flip;
+
+
 	void idle();
 	void animation();
 	void updateAmination();
@@ -44,11 +45,11 @@ private:
 	void jumpFunc();
 	void movement();
 	void leanBack();
-	
-	
+
+
 	sf::Sprite sprite;
 	sf::Texture texture;
-		
+
 	sf::IntRect idleFrame;
 	sf::IntRect attackFrame;
 	sf::IntRect currentFrame;

@@ -5,6 +5,7 @@
 #include"Menu.h"
 #include"gameWorld.h"
 #include"map.h"
+#include"Background.h"
 
 
 int main()
@@ -19,27 +20,31 @@ int main()
 
 	const int level[] =
 	{
-		
-		3, 3, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		
+
+		7, 7, 7, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+		28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28,
+		28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28,
+		28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28
 	};
 
-	// create the tilemap from the level definition
+
 	TileMap map;
-	if (!map.load("images/Platform/free.png", sf::Vector2u(16, 16), level, 40, 1))
+	if (!map.load("images/Platform/free.png", sf::Vector2u(16, 16), level, 40, 4))
 		return -1;
-	map.setScale(2.5f, 2.5f);
-	map.setPosition(0, window.getSize().y / 2);
+	map.setScale(3.5f, 3.5f);
+	map.setPosition(0, window.getSize().y / 1.5);
+
+	Background bg;
 
 	while (window.isOpen())
 	{
 		sf::Event event;
-			
+
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed) 
+			if (event.type == sf::Event::Closed)
 				window.close();
-			
+
 			if (event.type == sf::Event::KeyPressed)
 			{
 				if (menu.onMenu == true)
@@ -47,11 +52,11 @@ int main()
 
 					switch (event.key.code)
 					{
-					
+
 					case sf::Keyboard::Up:
 						menu.moveUp();
 						printf("up");
-						
+
 						break;
 					case sf::Keyboard::Down:
 						menu.moveDown();
@@ -65,7 +70,7 @@ int main()
 							std::cout << menu.onMenu;
 							break;
 						case 1:printf("press scb");
-							
+
 							break;
 						case 2:printf("press exit");
 							window.close();
@@ -73,22 +78,22 @@ int main()
 						}
 					default:
 						break;
-					
+
 					}
 
 				}
 			}
-			
+
 		}
 
 		hunter.update();
-		
-		window.clear();
 
-		if(menu.onMenu==true)menu.draw(window);
+		window.clear();
+		bg.draw(window);
+
+		if (menu.onMenu == true)menu.draw(window);
 		hunter.draw(window);
 		window.draw(map);
-		
 		window.display();
 
 

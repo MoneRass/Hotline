@@ -36,6 +36,12 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Background.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hunter.h">

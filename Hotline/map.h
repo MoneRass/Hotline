@@ -1,3 +1,5 @@
+#include<SFML/Graphics.hpp>
+
 class TileMap : public sf::Drawable, public sf::Transformable
 {
 public:
@@ -42,6 +44,9 @@ public:
         return true;
     }
 
+    void drawBackground(sf::RenderWindow& window);
+    void graveBackground();
+
 private:
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -58,4 +63,8 @@ private:
 
     sf::VertexArray m_vertices;
     sf::Texture m_tileset;
+    sf::Texture texture;
+    sf::Sprite sprite;
+
+    sf::Vector2u size;
 };

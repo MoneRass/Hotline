@@ -7,13 +7,10 @@ void Hunter::draw(sf::RenderWindow& window)
 
 void Hunter::movement()
 {
-	move = false;
-	couching = false;
-	jump = false;
-	moveRight = false;
-	moveLeft = false;
-	dashing = false;
-	if(sprite.getPosition().y <= 200.f)sprite.move(0, 2.f);//Gravity
+	this->move = false;
+	this->couching = false;
+
+	if (sprite.getPosition().y <= 200.f)sprite.move(0, 2.f);//Gravity
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		//sprite.move(0, -5.f);
@@ -25,6 +22,7 @@ void Hunter::movement()
 		sprite.move(-2.f, 0);
 		move = true;
 		moveLeft = true;
+		flip = true;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
@@ -35,6 +33,7 @@ void Hunter::movement()
 		sprite.move(2.f, 0);
 		move = true;
 		moveRight = true;
+		flip = false;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 	{
@@ -53,10 +52,17 @@ Hunter::~Hunter()
 
 Hunter::Hunter()
 {
-
+	move = false;
+	couching = false;
+	jump = false;
+	moveRight = false;
+	moveLeft = false;
+	dashing = false;
+	flip = false;
 	this->animation();
 	this->update();
 	this->playerSprite();
+
 }
 
 void Hunter::playerSprite()
@@ -64,6 +70,11 @@ void Hunter::playerSprite()
 	this->currentFrame = sf::IntRect(0, 0, 120, 80);
 	this->sprite.setTextureRect(this->currentFrame);
 	this->sprite.setScale(1.5f, 1.5f);
+	if (this->flip == true)
+	{
+		this->sprite.setScale(1.5f, -1.5f);
+		printf("flip");
+	}
 }
 
 void Hunter::idle()
@@ -102,6 +113,7 @@ void Hunter::playerRunRight()
 {
 	this->texture.loadFromFile("images/playerSprite1/_Run.png");
 	this->sprite.setTexture(texture);
+
 	this->currentFrame.left += 120.f;
 
 	if (this->currentFrame.left >= 1200)
@@ -125,6 +137,7 @@ void Hunter::update()
 {
 	this->movement();
 	this->animation();
+
 }
 
 void Hunter::animation()
@@ -150,6 +163,11 @@ void Hunter::animation()
 	{
 		this->couch();
 	}
+	if (flip == true)
+	{
+
+	}
+	else this->currentFrame = sf::IntRect(0, 0, 120, 80);
 }
 
 void Hunter::updateAmination()
@@ -165,30 +183,30 @@ void Hunter::initVariable()
 void Hunter::jumpFunc()
 {
 	//jumpTimer = JUMP_TIME;
-		if (jump == true && moveRight == true)
-		{
-			sprite.move(1.f, -5.f);
-			printf("jump");
-		}
-		else if (jump == true && moveLeft == true)
-		{
-			sprite.move(-1.f, -5.f);
-		}
-		else if (jump == true)
-		{
-			sprite.move(0, -5.f);
-		}
-		jump = false;
-		this->texture.loadFromFile("images/playerSprite1/_Jump.png");
-		this->sprite.setTexture(texture);
-		this->currentFrame.left += 120.f;
+	if (jump == true && moveRight == true)
+	{
+		sprite.move(1.f, -5.f);
+		printf("jump");
+	}
+	else if (jump == true && moveLeft == true)
+	{
+		sprite.move(-1.f, -5.f);
+	}
+	else if (jump == true)
+	{
+		sprite.move(0, -5.f);
+	}
+	jump = false;
+	this->texture.loadFromFile("images/playerSprite1/_Jump.png");
+	this->sprite.setTexture(texture);
+	this->currentFrame.left += 120.f;
 
-		if (this->currentFrame.left >= 360)
-		{
-			this->currentFrame.left = 0;
-		}
-		this->animationTimer.restart();
-		this->sprite.setTextureRect(this->currentFrame);
+	if (this->currentFrame.left >= 360)
+	{
+		this->currentFrame.left = 0;
+	}
+	this->animationTimer.restart();
+	this->sprite.setTextureRect(this->currentFrame);
 
 }
 
@@ -196,7 +214,7 @@ void Hunter::dash()
 {
 	this->jump = false;
 	this->attack = false;
-	//sprite.move(10.f, 0);
+	sprite.move(10.f, 0);
 	this->texture.loadFromFile("images/playerSprite1/_Roll.png");
 	this->sprite.setTexture(texture);
 	this->currentFrame.left += 120.f;
@@ -212,4 +230,10 @@ void Hunter::dash()
 void Hunter::setPos(float x, float y)
 {
 	sprite.setPosition(x, y);
+}
+
+void Hunter::attackColli()
+{
+	this->sprite.getGlobalBounds().width / 2.f;
+	this->sprite.getGlobalBounds().height;
 }

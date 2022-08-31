@@ -133,6 +133,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Background.cpp" />
+    <ClCompile Include="Background.h" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="gameWorld.cpp" />
